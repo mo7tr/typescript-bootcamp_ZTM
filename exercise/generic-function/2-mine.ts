@@ -13,12 +13,20 @@
 
 import { strict as assert } from "assert";
 
-function calculateAverage<T extends number>(arr: T[]): number {
-  const sum = arr.reduce((total, current) => total + current, 0);
-  return sum / arr.length;
-}
-
 const numbers: number[] = [1, 2, 3, 4, 5];
-const average = calculateAverage(numbers);
 
+const averageCalculator = <T extends number>(arr: T[]): number => {
+  let sum = 0;
+
+  for (const item of arr) {
+    sum += item;
+  }
+
+  console.log("sum =>", sum);
+
+  return sum / arr.length;
+};
+
+const average = averageCalculator(numbers);
+console.log("average =>", average);
 assert.equal(average, 3);

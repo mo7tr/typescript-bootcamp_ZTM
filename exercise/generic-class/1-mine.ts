@@ -20,27 +20,45 @@
 import { strict as assert } from "assert";
 
 class Queue<T> {
-  private readonly items: T[] = [];
+  items: T[];
 
-  enqueue(item: T): void {
-    this.items.push(item);
+  constructor(items: T[]) {
+    this.items = items;
   }
 
-  dequeue(): T | undefined {
+  add(param: T): void {
+    this.items.push(param);
+  }
+
+  remove(): T | undefined {
     return this.items.shift();
   }
 
-  getAll(): T[] {
-    return this.items;
+  log(): void {
+    console.log("this.items =>", this.items);
   }
 }
 
-const stringQueue = new Queue<string>();
-stringQueue.enqueue("Hello");
-stringQueue.enqueue("World");
+const queue = new Queue<string>(["a"]);
 
-const item = stringQueue.dequeue();
-assert.equal(item, "Hello");
+queue.log();
 
-const allItems = stringQueue.getAll();
-assert.deepStrictEqual(allItems, ["World"]);
+queue.add("Hello");
+
+queue.log();
+
+queue.remove();
+
+queue.log();
+
+queue.add("World");
+
+const itemOutOfTheQueue = queue.remove();
+console.log("itemOutOfTheQueue =>", itemOutOfTheQueue);
+assert.equal(itemOutOfTheQueue, "Hello");
+
+queue.log();
+
+console.log("queue =>", queue);
+
+assert.equal(queue.items[0], "World");
